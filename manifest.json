@@ -1,9 +1,9 @@
 {
-  "name": "Elena Girjoaba Music · Panel",
-  "short_name": "EG Music Panel",
-  "description": "Panel de control y repertorio de Elena Girjoaba Music, disponible sin conexión.",
-  "id": "./panel.html",
-  "start_url": "./panel.html",
+  "name": "Elena Girjoaba Music · Repertorio completo",
+  "short_name": "EG Repertorio",
+  "description": "Repertorio completo de Elena Girjoaba Music.",
+  "id": "./index.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "display_override": [
@@ -40,28 +40,5 @@
       "purpose": "maskable"
     }
   ],
-  "shortcuts": [
-    {
-      "name": "Abrir panel",
-      "short_name": "Panel",
-      "url": "./panel.html",
-      "icons": [
-        {
-          "src": "./assets/app-icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Abrir repertorio",
-      "short_name": "Repertorio",
-      "url": "./index.html",
-      "icons": [
-        {
-          "src": "./assets/app-icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    }
-  ]
+  "shortcuts": []
 }

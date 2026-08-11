@@ -1,5 +1,8 @@
 "use strict";
 
+// Página pública independiente: siempre muestra el repertorio Master completo.
+const CATALOGO_PUBLICO = true;
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import {
   arrayRemove,
@@ -801,9 +804,13 @@ async function cargarDatos() {
 
   const parametroLista = new URLSearchParams(window.location.search).get("lista");
 
-  // Solo la página independiente “Todas las canciones” queda forzada por URL.
-  // La interfaz pública normal siempre debe obedecer el repertorio activo de Firebase.
-  if (parametroLista === "todas") {
+  if (CATALOGO_PUBLICO) {
+    // Esta copia NO obedece al repertorio activo del show.
+    // Master = Todas las canciones, siempre.
+    estado.modo = "todas";
+    estado.modoForzado = true;
+    estado.vistaClientes = true;
+  } else if (parametroLista === "todas") {
     estado.modo = "todas";
     estado.modoForzado = true;
     estado.vistaClientes = true;
@@ -858,18 +865,20 @@ function iniciarFirebase(firebaseConfig) {
       }
 
       if (!snapshot.exists()) {
-        await setDoc(
-          estado.estadoRef,
-          {
-            lista_activa: estado.modo,
-            pedidos_whatsapp: false,
-            mostrar_cola: true,
-            inicio_show: Date.now(),
-            cola: [],
-            tocadas: []
-          },
-          { merge: true }
-        );
+        if (!CATALOGO_PUBLICO) {
+          await setDoc(
+            estado.estadoRef,
+            {
+              lista_activa: estado.modo,
+              pedidos_whatsapp: false,
+              mostrar_cola: true,
+              inicio_show: Date.now(),
+              cola: [],
+              tocadas: []
+            },
+            { merge: true }
+          );
+        }
         return;
       }
 
@@ -900,10 +909,16 @@ function iniciarFirebase(firebaseConfig) {
       };
 
       actualizarEstadoFirebase("En línea", "online");
-      await comprobarReinicioAutomatico();
-      await cargarContactos();
+      if (!CATALOGO_PUBLICO) {
+        await comprobarReinicioAutomatico();
+        await cargarContactos();
+      }
 
-      if (!estado.modoForzado && (estado.modo !== listaAplicable || bibliotecaCambio)) {
+      if (CATALOGO_PUBLICO && bibliotecaCambio) {
+        aplicarModo("todas", false);
+        estado.mostrar = true;
+        renderizar();
+      } else if (!estado.modoForzado && (estado.modo !== listaAplicable || bibliotecaCambio)) {
         aplicarModo(listaAplicable, false);
       }
       sincronizarInterfazRemota();
@@ -996,6 +1011,7 @@ function actualizarCategoriasDisponibles() {
 function aplicarModo(modo, desplazar = true) {
   estado.modo = modo;
   const usarIdsRemotos =
+    !CATALOGO_PUBLICO &&
     estado.idsRepertorioRemoto instanceof Set &&
     estado.configRemota?.lista_activa === modo;
   estado.base = usarIdsRemotos
@@ -1034,10 +1050,12 @@ function obtenerVisibles() {
 
     // Búsqueda pública precisa: solo muestra títulos que comienzan
     // con las letras escritas, ignorando mayúsculas y tildes.
-    const coincideInicioTitulo =
-      !consulta || normalizar(cancion.titulo).startsWith(consulta);
+    const coincideBusqueda =
+      !consulta ||
+      normalizar(cancion.titulo).startsWith(consulta) ||
+      normalizar(cancion.artista).startsWith(consulta);
 
-    return coincideCategoria && coincideInicioTitulo;
+    return coincideCategoria && coincideBusqueda;
   });
 }
 
@@ -3030,7 +3048,19 @@ async function iniciar() {
 
   try {
     await cargarDatos();
-    if(panelMode){DOM.landing.hidden=true;DOM.app.hidden=false;estado.mostrar=true;renderizar();}
+    if (CATALOGO_PUBLICO) {
+      DOM.landing.hidden = true;
+      DOM.app.hidden = false;
+      DOM.volver.hidden = true;
+      estado.modo = "todas";
+      estado.modoForzado = true;
+      estado.vistaClientes = true;
+      aplicarModo("todas", false);
+      estado.mostrar = true;
+      actualizarControles();
+      renderizar();
+      renderizarEstadoPublico();
+    } else if(panelMode){DOM.landing.hidden=true;DOM.app.hidden=false;estado.mostrar=true;renderizar();}
   } catch (error) {
     console.error(error);
     DOM.errorCarga.hidden = false;

@@ -4,29 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#080808">
-  <link rel="manifest" href="./manifest.json">
-  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon-180.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon-180.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="EG Music Panel">
-  <meta name="description" content="Elena Girjoaba Music — Música a la Carta. Disfruta de una experiencia interactiva y elige la canción que quieres escuchar.">
+  <meta name="apple-mobile-web-app-title" content="Elena Girjoaba · Repertorio">
+  <meta name="description" content="Elena Girjoaba Music — Repertorio completo. Explora todas las canciones disponibles para eventos y música en vivo.">
   <meta name="author" content="Elena Girjoaba Music">
   <meta name="application-name" content="Elena Girjoaba Music">
   <meta name="version" content="2.0">
 
-  <meta property="og:title" content="Elena Girjoaba Music">
-  <meta property="og:description" content="Música en vivo para tu evento. Tú eliges la canción, nosotros la tocamos.">
+  <meta property="og:title" content="Elena Girjoaba Music | Repertorio completo">
+  <meta property="og:description" content="Conoce el repertorio completo de Elena Girjoaba Music para eventos y música en vivo.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/foto-banda.jpg">
 
-  <title>Elena Girjoaba Music | Música a la Carta</title>
+  <title>Elena Girjoaba Music | Repertorio completo</title>
 
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=6.36.72.11">
+  <link rel="stylesheet" href="style.css?v=repertorio-master-1">
 
   <script>
     // Respaldo independiente para desbloquear Música a la Carta.
@@ -75,10 +74,10 @@
     });
   </script>
 
-  <script type="module" src="script.js?v=6.36.72.11"></script>
+  <script defer src="master-catalog.js?v=2"></script>
 </head>
 
-<body>
+<body class="catalogo-publico">
     <button id="panelBackButton" class="panel-back-button" type="button" aria-label="Volver al panel de control" hidden>← Panel</button>
     <a class="skip-link" href="#contenidoPrincipal">Ir al contenido principal</a>
 
@@ -246,10 +245,10 @@
       <div class="hero__contenido">
         <p class="hero__marca">ELENA GIRJOABA MUSIC</p>
 
-        <h2 class="hero__titulo">MÚSICA A LA CARTA</h2>
+        <h2 class="hero__titulo">REPERTORIO COMPLETO</h2>
 
         <p class="hero__slogan">
-          Tú eliges la canción, nosotros la tocamos.
+          Todas nuestras canciones en un solo lugar.
         </p>
 
         <a class="hero__flecha" href="#contenidoPrincipal" aria-label="Bajar al repertorio">
@@ -261,12 +260,12 @@
     <main id="contenidoPrincipal" class="contenido-principal">
       <section class="explorador" aria-labelledby="tituloExplorador">
         <div class="explorador__encabezado">
-          <p class="explorador__eyebrow">MÚSICA A LA CARTA</p>
+          <p class="explorador__eyebrow">ELENA GIRJOABA MUSIC</p>
           <h2 id="tituloExplorador" class="explorador__titulo">
-            Explora nuestro repertorio
+            Repertorio completo
           </h2>
           <p class="explorador__descripcion">
-            Busca por nombre, artista o explora las canciones por género.
+            Explora todas nuestras canciones por nombre, artista o género.
           </p>
         </div>
 
@@ -276,7 +275,7 @@
           <button id="mostrarTodo" class="mostrar-todo mostrar-todo--principal" type="button">
             <span class="mostrar-todo__icono" aria-hidden="true">♫</span>
             <span class="mostrar-todo__contenido">
-              <strong id="textoMostrarTodo">Ver las 130 canciones</strong>
+              <strong id="textoMostrarTodo">Todas las canciones</strong>
               <small><span id="totalCancionesBoton">0</span> canciones disponibles</small>
             </span>
             <span class="mostrar-todo__flecha" aria-hidden="true">›</span>
@@ -958,6 +957,5 @@
       Esta página necesita JavaScript para mostrar y filtrar las canciones.
     </div>
   </noscript>
-  <script src="./pwa.js"></script>
 </body>
 </html>

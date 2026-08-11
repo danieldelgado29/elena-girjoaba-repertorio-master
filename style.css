@@ -5937,3 +5937,13 @@ body.cola-publica-visible {
     animation-duration: 2.8s;
   }
 }
+
+
+/* ===== Repertorio público Master ===== */
+.catalogo-publico #estadoShowPublico,
+.catalogo-publico #panelBackButton,
+.catalogo-publico .version-prueba,
+.catalogo-publico #adminModal,
+.catalogo-publico #pedidoModal { display: none !important; }
+.catalogo-publico .cancion__cerrar,
+.catalogo-publico .cancion__grita { display: none !important; }

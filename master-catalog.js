@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const limpiar = document.getElementById('limpiarBusqueda');
   const sinResultados = document.getElementById('sinResultados');
   const mostrarTodo = document.getElementById('mostrarTodo');
+  const volverArriba = document.getElementById('volverArriba');
+  const controlesCanciones = document.getElementById('controlesCanciones');
   const categorias = [...document.querySelectorAll('[data-categoria]')];
   let categoria = null;
   let consulta = '';
@@ -87,6 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
   categorias.forEach(btn=>btn.addEventListener('click',()=>{ categoria = categoria === btn.dataset.categoria ? null : btn.dataset.categoria; render(); }));
   buscar?.addEventListener('input',()=>{ consulta = buscar.value; render(); });
   limpiar?.addEventListener('click',()=>{ consulta=''; if(buscar){buscar.value='';buscar.focus();} render(); });
+
+  // Botón público Menú: vuelve únicamente a los controles del repertorio.
+  // No comparte código ni rutas con el panel administrativo.
+  volverArriba?.addEventListener('click', () => {
+    controlesCanciones?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
 
   render();
 });
